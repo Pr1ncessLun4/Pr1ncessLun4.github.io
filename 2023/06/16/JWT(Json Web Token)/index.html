@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    PrincessLuna
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="Pr1ncessLun4" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a target="_blank" rel="noopener" href="https://pony.town" class="logo">Go PonyTown!</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/luna/" title="Princess Luna">
+		                Princess Luna
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/celestia/" title="Princess Celestia">
+		                Princess Celestia
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/cadence/" title="Princess Cadence">
+		                Princess Cadence
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/twilight/" title="Princess Twilight">
+		                Princess Twilight
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/miccall" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a title="500px" href="http://500px.com" target="_blank" rel="noopener">
+                            <i class="icon fa fa-500px"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/images/hacker4.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >JWT(Json Web Token)</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="JWT-Json-Web-Token"><a href="#JWT-Json-Web-Token" class="headerlink" title="JWT(Json Web Token)"></a>JWT(Json Web Token)</h2><p>简介：是实现token验证的一种方式，将用户信息保存在一个json字符串中，编码后得到一个token。                                             认证流程：客户端向服务端发送请求–&gt;验证用户凭据，成功后生成jwt–&gt;token包括在登录响应中，返回给客户。在之后的请求中，http请求头中包含token供应用程序验证，首先验证签名，验证成功则处理请求。			                                    jwt令牌结构：由三个部分组成：header.payload.signature																							                      header: 固定包含算法和token类型，对此json进行base64url加密，这就是token的第一段。{  “alg”:”HS256”,  “typ”:”JWT”} 这里的HS256为设定的加密算法。																																	                    payload: 包含一些数据，对此json进行base64url加密，这就是token的第二段																	                signature: 把前两段的base密文通过.拼接起来，然后对其进行HS256加密，再然后对hs256密文进行base64url加密，最终得到token的第三段  																			                                                                                     Signature &#x3D; HMACSHA256(base64UrlEncode(header) + “.” + base64UrlEncode(payload),”secret”)     secret保存在后端，用于验证</p>
+<p>使用burpsuite官方的靶场进行复现：</p>
+<p>1、Lab: JWT authentication bypass via unverified signature   </p>
+<p>没有验证签名。</p>
+<p>首先用给的用户名进行登录。然后再次访问，在这个页面抓包<img src="/../images/1.png"></p>
+<p>session&#x3D;…..那里就是jwt。burp可以自动解码jwt信息<img src="/../images/2.png"></p>
+<p>把payload中的wiener改为administrator，上面的jwt会随着更改，复制到请求头，发包。回到页面看到多了一个		admin panel链接。继续带着改过的jwt访问，可以看到两个用户名，靶场要求我们删除carlot用户，也是带着jwt删掉即可。<img src="/../images/3.png"></p>
+<p>2、Lab: JWT authentication bypass via flawed signature verification </p>
+<p>没有禁用空加密，相当于可以不签名。</p>
+<p>还是那个页面抓包，把alg改为none(代表没有签名算法)，然后把sub后面改成administrator。去掉最后的signature部分，发包。其余操作和1一样。<img src="/../images/4.png"></p>
+<p>3、Lab: JWT authentication bypass via weak signing key  </p>
+<p>后端密钥为弱密钥，可以通过爆破得到。</p>
+<p>使用hashcat工具: hashcat -a 0 -m 16500 jwt wordlist        wordlist为字典  得到密钥为secret1。然后再jwt.io上面改。<img src="/../images/5.png"></p>
+<p>剩余的操作和上两道题一样。<img src="/../images/6.png"></p>
+<p>4、Lab: JWT authentication bypass via jwk header injection    </p>
+<p>jwk标签头注入JSON Web Signature规范描述了一个可选的jwk标头参数，服务器可以使用该参数以 JWK 格式将其公钥直接嵌入到令牌本身中。简单来说就是jwk表示一个加密密钥。正常情况下，服务器只使用公钥白名单来验证JWT签名，但是由于某些原因，服务器会用JWK参数中嵌入的任何密钥进行验证。</p>
+<p>这一关直接用burpsuite插件做了(Jwt Editor Keys),这个地方点击attack<img src="/../images/7.png"></p>
+<p>找到Embedded JWK。用户名改为administrator。把新的JWT发过去就行了。<img src="/../images/8.png"></p>
+<p>5、Lab: JWT authentication bypass via jku header injection(暂时未复现成功)</p>
+<p>6、Lab: JWT authentication bypass via kid header path traversal</p>
+<p>服务器可能会使用多个加密密钥来为不同类型的数据进行签名，出于这个原因，在JWT头部有时会包含一个kid参数，以避免服务器验证签名时出现错误。如果kid参数受到目录遍历的影响，可以把任意文件的文件名当做密钥利用。</p>
+<p>先生成一个Symmetric Key，把k的值改为AA&#x3D;&#x3D;，base64解码就是null。<img src="/../images/9.png"></p>
+<p>抓包改kid和sub。kid改为”..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;dev&#x2F;null” 表示空设备文件，sub改为administrator。然后回到repeater点击sign选择OCT8 的密钥攻击<img src="/../images/10.png"></p>
+<p>成功登录administrator</p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://example.com/2023/06/16/JWT(Json%20Web%20Token)/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2023/06/16/JWT(Json%20Web%20Token)/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
